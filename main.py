@@ -1,4 +1,4 @@
-# By Pytel & Karel
+# By Pytel & KNajman
 import sys
 
 # ENUM
@@ -21,8 +21,8 @@ def read_input ():
     n = int(sys.stdin.readline())
     lines = sys.stdin.readlines()
     array = parse_input(lines)
-    print_array(array)    
-    assert(len(array) == n)
+    print_array(array)
+    assert len(array) == n
     return array
 
 def make_array (X, Y, value):
@@ -37,22 +37,20 @@ def make_array (X, Y, value):
 def empty (array):
     return len(array) == 0
 
-def change_state (array, coord, state):
-    X = len(array[0])
-    Y = len(array)
-    x, y = coord
+def change_state (array, coordinations, state):
+    x, y = coordinations
     array[y][x] = state
 
-def is_valid_coord(X,Y, x,y):
-    return x >= 0 and x < X and y >= 0 and y < Y
+def is_valid_coord(X, Y, x, y):
+    return X > x >= 0 and Y > y >= 0
 
-def in_reach (value1, value2, dist):
-    return abs(value2-value1) <= dist
+def in_reach (value1, value2, max_distance):
+    return abs(value2-value1) <= max_distance
 
-def get_neaighbours_in_reach (array, coord, dist):
+def get_neaighbours_in_reach (array, coordinations, distance):
     X = len(array[0])
     Y = len(array)
-    x, y = coord
+    x, y = coordinations
     value = array[y][x]
     neighbors = []
     for vector in [[-1,0], [0,1], [+1,0], [0,-1]]:
@@ -60,7 +58,7 @@ def get_neaighbours_in_reach (array, coord, dist):
         yd, xd = vector
         yn = y+yd
         xn = x+xd
-        if is_valid_coord(X,Y, xn,yn) and in_reach(value, array[yn][xn], dist):
+        if is_valid_coord(X,Y, xn,yn) and in_reach(value, array[yn][xn], distance):
             neighbors.append([xn, yn])
     return neighbors
 
@@ -68,12 +66,11 @@ def in_state (array, coord, state):
     x, y = coord
     return array[y][x] == state
 
-def solve(array, seed, dist):
+def solve(array, seed, distance):
     X = len(array[0])
     Y = len(array)
 
     solution = make_array(X, Y, UNVISITED)
-    
     # init
     opened = [seed]
     change_state(solution, seed, OPENED)
@@ -81,7 +78,7 @@ def solve(array, seed, dist):
     # iterate
     while not empty(opened):
         coord = opened.pop(0)
-        to_open = get_neaighbours_in_reach(array, coord, dist)
+        to_open = get_neaighbours_in_reach(array, coord, distance)
         for new_coord in to_open:
             if not in_state(solution, new_coord, UNVISITED):
                 continue
@@ -92,8 +89,7 @@ def solve(array, seed, dist):
 
 if __name__ == '__main__':
     array = read_input()
-    dist = 2
+    distance = 2
     seed = [0,0]
-    solution = solve(array, seed, dist)
+    solution = solve(array, seed, distance)
     print_array(solution)
-

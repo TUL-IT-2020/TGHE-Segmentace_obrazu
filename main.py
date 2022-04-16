@@ -34,11 +34,13 @@ class Edge():
         ", vertex A: " + str(self.vertex1) + 
         ", vertex B: " + str(self.vertex2))
 
+
 def print_array(array):
     for line in array:
         for value in line:
-            print(value, end =" ")
+            print(value, end=" ")
         print("")
+
 
 def parse_input(text):
     array = []
@@ -47,14 +49,16 @@ def parse_input(text):
         array.append(row)
     return array
 
+
 def read_input():
     n = int(sys.stdin.readline())
     lines = sys.stdin.readlines()
     array = parse_input(lines)
-    if DEBUG: 
+    if DEBUG:
         print_array(array)
     assert len(array) == n
     return array
+
 
 def make_array(X, Y, value):
     array = []
@@ -65,18 +69,23 @@ def make_array(X, Y, value):
         array.append(row)
     return array
 
+
 def empty(array):
     return len(array) == 0
+
 
 def change_state(array, coordinations, state):
     x, y = coordinations
     array[y][x] = state
 
+
 def is_valid_coord(X, Y, x, y):
     return X > x >= 0 and Y > y >= 0
 
+
 def in_reach(value1, value2, max_distance):
-    return abs(value2 - value1) <= max_distance
+    return abs(value2 - value1) < max_distance
+
 
 def visited(value):
     return value == VISITED
@@ -96,6 +105,7 @@ def add_neaighbours(array, coord, heap):
             vertex2 = Vertex(array[yn][xn], [xn, yn])
             edge = Edge(vertex1, vertex2)
             heapq.heappush(heap, edge)
+
 
 def in_state(array, coord, state):
     x, y = coord
@@ -139,6 +149,7 @@ def solve(values_array, seed):
         change_state(solution, coord, BACKGROUND)
 
     return solution
+
 
 if __name__ == "__main__":
     values_array = read_input()

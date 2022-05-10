@@ -1,24 +1,26 @@
 import main
-
-DataIn = ["0 0 1 0 0", "0 1 4 5 0", "0 5 5 6 1", "0 6 6 3 2", "1 0 1 2 2"]
-DataLen = 5
+import pytest
 
 # print_input bez testu
 # read_input bez testu
-#
 
-
-def test_parse_input():
+@pytest.mark.parametrize('DataIn, DataLen', [
+    (["0 0 1 0 0", "0 1 4 5 0", "0 5 5 6 1", "0 6 6 3 2", "1 0 1 2 2"], 5),
+])
+def test_parse_input(DataIn, DataLen):
     array = main.parse_input(DataIn)
     length = DataLen
     assert len(array) == length
 
 
-def test_make_array():
-    assert main.make_array(4, 3, 8) == [[8, 8, 8, 8], [8, 8, 8, 8], [8, 8, 8, 8]]
-    assert main.make_array(2, 3, 7) == [[7, 7], [7, 7], [7, 7]]
-    assert main.make_array(2, 2, 6) == [[6, 6], [6, 6]]
-    assert main.make_array(1, 1, 5) == [[5]]
+@pytest.mark.parametrize('X, Y, value, validate', [
+    (4, 3, 8, [[8, 8, 8, 8], [8, 8, 8, 8], [8, 8, 8, 8]]),
+    (2, 3, 7, [[7, 7], [7, 7], [7, 7]]),
+    (2, 2, 6, [[6, 6], [6, 6]]),
+    (1, 1, 5, [[5]])
+])
+def test_make_array(X, Y, value, validate):
+    assert main.make_array(X, Y, value) == validate
 
 
 def test_empty():
@@ -38,11 +40,13 @@ def test_is_valid_coord():
 # in_state bez testu
 # change_state bez testu
 
-
-def test_in_reach():
-    assert main.in_reach(4, 5, 0) == False
-    assert main.in_reach(4, 5, 1) == True
-    assert main.in_reach(4, 5, 2) == True
-    assert main.in_reach(4, 5, 7) == True
-    assert main.in_reach(2, 9, 8) == True
-    assert main.in_reach(2, 9, 1) == False
+@pytest.mark.parametrize('value1, value2, max_distance, validate', [
+    (4, 5, 0, False),
+    (4, 5, 1, True),
+    (4, 5, 2, True),
+    (4, 5, 7, True),
+    (2, 9, 8, True),
+    (2, 9, 1, False)
+])
+def test_in_reach(value1, value2, max_distance, validate):
+    assert main.in_reach(value1, value2, max_distance) == validate

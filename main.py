@@ -128,7 +128,7 @@ def visited(value):
     return value == VISITED
 
 
-def add_neaighbours(array, coord, heap):
+def add_neighbours(array, coord, heap):
     """
     add neaighbours to heap
     """
@@ -169,7 +169,7 @@ def solve(values_array, seed):
     heap = []
     heapq.heapify(heap)
     change_state(visited_array, seed, VISITED)
-    add_neaighbours(values_array, seed, heap)
+    add_neighbours(values_array, seed, heap)
 
     # iterate
     while not empty(heap):
@@ -179,7 +179,7 @@ def solve(values_array, seed):
         if not in_state(visited_array, coord, OPENED):
             continue
         change_state(visited_array, coord, VISITED)
-        add_neaighbours(values_array, coord, heap)
+        add_neighbours(values_array, coord, heap)
         tree.append(edge)
         if DEBUG:
             print()

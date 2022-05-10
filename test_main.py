@@ -42,7 +42,7 @@ def test_is_valid_coord():
 
 @pytest.mark.parametrize('value1, value2, max_distance, validate', [
     (4, 5, 0, False),
-    (4, 5, 1, True),
+    (4, 5, 1, False),
     (4, 5, 2, True),
     (4, 5, 7, True),
     (2, 9, 8, True),

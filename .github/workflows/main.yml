@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Test with pytest
         run: |
-          if [ -d tests ] || [ -d test ]; then python -m py.test; fi
+          if [ -d tests ] || [ -d test ]; then python -m pytest; fi
           
       - name: Calculate covarege
         run: |

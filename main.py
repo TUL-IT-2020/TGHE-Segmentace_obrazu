@@ -92,7 +92,7 @@ def make_array(X, Y, value):
     return array
 
 
-def empty(array):
+def empty(array) -> bool:
     """
     return true if array is empty
     """
@@ -107,7 +107,7 @@ def change_state(array, coordinations, state):
     array[y][x] = state
 
 
-def is_valid_coord(X, Y, x, y):
+def is_valid_coord(X, Y, x, y) -> bool:
     """
     return true if coord is valid
     """
@@ -119,13 +119,6 @@ def in_reach(value1, value2, max_distance):
     return true if value1 is in reach of value2
     """
     return abs(value2 - value1) < max_distance
-
-
-def visited(value):
-    """
-    return true if value is visited
-    """
-    return value == VISITED
 
 
 def add_neighbours(array, coord, heap):
@@ -148,7 +141,7 @@ def add_neighbours(array, coord, heap):
             heapq.heappush(heap, edge)
 
 
-def in_state(array, coord, state):
+def in_state(array, coord, state) -> bool:
     """
     return true if coord is in state
     """

@@ -1,3 +1,4 @@
+![Tests](https://github.com/elPytel/TGHE-Segmentace_obrazu/actions/workflows/main.yml/badge.svg)
 
 # TGHE
 # Problém Segmentace obrazu
